@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domestic Labour Management System - Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        header {
+            background-color: #007b5e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .service-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .profile-actions {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            display: none;
+            z-index: 10;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .profile-actions.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .profile-actions button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .profile-actions button:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Domestic Labour Management System - Dashboard</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" onclick="toggleProfileActions()">
+                        Profile
+                    </a>
+                    <div class="profile-actions" id="profileActions">
+                        <h5 class="mb-3">Profile Options</h5>
+                        <button class="btn btn-secondary" onclick="window.location.href='/update_profile'">Update Profile</button>
+<!-- Inside the Profile Dropdown -->
+<button class="btn btn-secondary" onclick="window.location.href='/my_application'">My Application</button>
+<form action="/delete_profile" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile?');">
+    <button class="btn btn-danger" type="submit">Delete Profile</button>
+</form>
+
+                            
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="welcome text-center mb-4">
+            <h2>Welcome to your Dashboard</h2>
+            <p>Manage your services and profile here.</p>
+        </div>
+
+        <!-- Key Features Section -->
+        <section class="mt-5">
+            <h2 class="text-center">Key Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <strong>Task Assignment:</strong>
+                            <p>Easily assign tasks to domestic workers or family members.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <strong>Scheduling:</strong>
+                            <p>Create schedules for regular and one-time tasks.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <strong>Tracking:</strong>
+                            <p>Monitor task completion status and generate reports.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="mt-5">
+            <h2 class="text-center">Our Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <img src="coconut.jpeg" class="card-img-top" alt="Coconut Tree Climber">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Coconut Tree Climber</h3>
+                            <p class="card-text">Expert coconut tree climbing services.</p>
+                            <button class="btn btn-primary" onclick="window.location.href='/coconut_tree_climber'">Hire Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <img src="maid.jpeg" class="card-img-top" alt="House Maid">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">House Maid</h3>
+                            <p class="card-text">Professional cleaning and household management.</p>
+                            <button class="btn btn-primary" onclick="window.location.href='/house_maid'">Hire Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card">
+                        <img src="garden.jpeg" class="card-img-top" alt="Gardener">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Gardener</h3>
+                            <p class="card-text">Expert gardening services for your home.</p>
+                            <button class="btn btn-primary" onclick="window.location.href='/gardener'">Hire Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="mt-5">
+            <h2 class="text-center">Contact Us</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="mt-5">
+            <h2 class="text-center">About Us</h2>
+            <p class="text-center">We provide reliable and professional domestic labor services to meet your needs. Our team is dedicated to connecting you with skilled workers for various household tasks.</p>
+        </section>
+
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Domestic Labour Management System</p>
+    </footer>
+
+    <script>
+        function toggleProfileActions() {
+            var actions = document.getElementById('profileActions');
+            if (actions.classList.contains('show')) {
+                actions.classList.remove('show');
+            } else {
+                actions.classList.add('show');
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            var profileButton = document.getElementById('profileDropdown');
+            var profileActions = document.getElementById('profileActions');
+            
+            if (!profileButton.contains(event.target) && !profileActions.contains(event.target)) {
+                profileActions.classList.remove('show');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
