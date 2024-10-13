@@ -10,10 +10,13 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Available Coconut Climbers</h2>
         
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#applyModal">
             Apply to be a Climber
         </button>
-
+        <form action="/coconut_tree_climbers" method="GET" class="form-inline mb-4">
+            <input type="text" class="form-control mr-2" name="search" placeholder="Search by location" value="{{ request.args.get('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
         <!-- Display application details -->
         {% if application_details %}
         <div class="mt-4">
