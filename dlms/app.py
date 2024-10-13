@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a random secret key
 db_config = {
     'user': 'root',
-    'password': 'your password',
-    'host': 'your localhost',
-    'database': ' databasename',
+    'password': 'password123@',
+    'host': 'localhost',
+    'database': 'your_database',
 }
 
 # Connect to the database
@@ -119,6 +119,21 @@ def coconut_tree_climber():
     climbers = cursor.fetchall()
     cursor.close()
     conn.close()
+    # Handle search query for GET requests
+    search_query = request.args.get('search')  # Get the search term from the URL
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    if search_query:
+        # If a search query is provided, filter house maids by location
+        cursor.execute("SELECT * FROM coconut_climbers WHERE location LIKE %s", ('%' + search_query + '%',))
+    else:
+        # If no search query is provided, fetch all house maids
+        cursor.execute("SELECT * FROM coconut_climbers")
+
+    coconut_climbers = cursor.fetchall()
+    cursor.close()
+    conn.close()
 
     return render_template('coconut_tree_climbers.html', climbers=climbers, application_details=application_details)
 @app.route('/gardener', methods=['GET', 'POST'])
@@ -169,6 +184,22 @@ def gardener():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM gardeners")
+    gardeners = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    # Handle search query for GET requests
+    search_query = request.args.get('search')  # Get the search term from the URL
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    if search_query:
+        # If a search query is provided, filter house maids by location
+        cursor.execute("SELECT * FROM gardeners WHERE location LIKE %s", ('%' + search_query + '%',))
+    else:
+        # If no search query is provided, fetch all house maids
+        cursor.execute("SELECT * FROM gardeners")
+
     gardeners = cursor.fetchall()
     cursor.close()
     conn.close()
