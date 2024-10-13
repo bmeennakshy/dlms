@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Available House Maids</title>
+    <title>Available Gardeners</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Available House Maids</h2>
+        <h2 class="text-center mb-4">Available Gardeners</h2>
+        
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
-            Apply to be a House Maid
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#applyModal">
+            Apply to be a Gardener
         </button>
-
+        <form action="/gardener" method="GET" class="form-inline mb-4">
+            <input type="text" class="form-control mr-2" name="search" placeholder="Search by location" value="{{ request.args.get('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
         <!-- Display application details -->
         {% if application_details %}
         <div class="mt-4">
@@ -21,25 +25,23 @@
             <p><strong>Name:</strong> {{ application_details.name }}</p>
             <p><strong>Phone:</strong> {{ application_details.phone }}</p>
             <p><strong>Location:</strong> {{ application_details.location }}</p>
-            <p><strong>Daily Wage:</strong> {{ application_details.daily_wages }}</p>
-            <p><strong>Experience:</strong> {{ application_details.experience }} years</p>
+            <p><strong>Hourly Wage:</strong> {{ application_details.hourly_wage }}</p>
+            <p><strong>Experience:</strong> {{ application_details.experience }}</p>
             <p><strong>Age:</strong> {{ application_details.age }}</p>
             <p><strong>Website:</strong> {{ application_details.website }}</p>
-            <p><strong>Services:</strong> {{ ', '.join(application_details.services) }}</p>
         </div>
         {% endif %}
 
-        <div class="row mt-4" id="maidList">
-            {% for maid in house_maids %}
+        <div class="row mt-4" id="gardenerList">
+            {% for gardener in gardeners %}
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">{{ maid[2] }}</h5> <!-- full_name -->
-                        <p class="card-text">Location: {{ maid[5] }}</p> <!-- location -->
-                        <p class="card-text">Phone: {{ maid[4] }}</p> <!-- phone -->
-                        <p class="card-text">Daily Wage: {{ maid[7] }}</p> <!-- daily_wages -->
-                        <p class="card-text">Experience: {{ maid[8] }} years</p> <!-- experience -->
-                        <p class="card-text">Services: {{ maid[6] }}</p> <!-- services -->
+                        <h5 class="card-title">{{ gardener[2] }}</h5> <!-- full_name -->
+                        <p class="card-text">Location: {{ gardener[5] }}</p> <!-- location -->
+                        <p class="card-text">Phone: {{ gardener[4] }}</p> <!-- phone -->
+                        <p class="card-text">Hourly Wage: {{ gardener[7] }}</p> <!-- hourly_wage -->
+                        <p class="card-text">Experience: {{ gardener[8] }} years</p> <!-- experience -->
                     </div>
                 </div>
             </div>
@@ -51,13 +53,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="applyModalLabel">Apply to be a House Maid</h5>
+                        <h5 class="modal-title" id="applyModalLabel">Apply to be a Gardener</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="applyForm" action="/house_maid" method="POST">
+                        <form id="applyForm" action="/gardener" method="POST">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ application_details.name if application_details else '' }}" required>
@@ -82,25 +84,15 @@
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" value="{{ session['username'] if 'username' in session else '' }}" required>
                             </div>
-                            
-                            <!-- Services Selection -->
                             <div class="form-group">
-                                <label for="services">Services Offered</label><br>
-                                <input type="checkbox" name="services" value="Nanny"> Nanny <br>
-                                <input type="checkbox" name="services" value="Elder Care"> Elder Care <br>
-                                <input type="checkbox" name="services" value="Caretaker for Injured"> Caretaker for Injured <br>
-                                <input type="checkbox" name="services" value="Household"> Household <br>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="dailyWage">Base Daily Wage (for one service)</label>
-                                <input type="number" class="form-control" id="dailyWage" name="daily_wages" step="0.01" min="0" value="{{ application_details.daily_wages if application_details else '' }}" required>
+                                <label for="hourlyWage">Hourly Wage</label>
+                                <input type="number" class="form-control" id="hourlyWage" name="daily_wages" step="0.01" min="0" value="{{ application_details.hourly_wage if application_details else '' }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="experience">Years of Experience</label>
                                 <input type="number" class="form-control" id="experience" name="experience" min="0" max="80" value="{{ application_details.experience if application_details else '' }}" required>
                             </div>
-
+                           
                             <button type="submit" class="btn btn-primary">Apply</button>
                         </form>
                     </div>
