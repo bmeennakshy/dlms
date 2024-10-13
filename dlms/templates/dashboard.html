@@ -80,11 +80,14 @@
                         <h5 class="mb-3">Profile Options</h5>
                         <button class="btn btn-secondary" onclick="window.location.href='/update_profile'">Update Profile</button>
 <!-- Inside the Profile Dropdown -->
-<button class="btn btn-secondary" onclick="window.location.href='/my_application'">My Application</button>
-<form action="/delete_profile" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile?');">
-    <button class="btn btn-danger" type="submit">Delete Profile</button>
-</form>
 
+<form action="/delete_profile" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile?');">
+    <button class="btn btn-secondary" type="submit">Delete Profile</button>
+</form>
+ <!-- Log Out Option -->
+ <form action="/logout" method="POST">
+    <button class="btn btn-warning mt-3" type="submit">Log Out</button>
+</form>
                             
                     </div>
                 </li>
@@ -126,6 +129,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <strong>Communication:</strong>
+                            <p>Facilitate communication between household members and domestic workers.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <strong>User Management:</strong>
+                            <p>Manage profiles for different users, including roles and permissions.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -135,7 +154,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card service-card">
-                        <img src="coconut.jpeg" class="card-img-top" alt="Coconut Tree Climber">
+                        
                         <div class="card-body text-center">
                             <h3 class="card-title">Coconut Tree Climber</h3>
                             <p class="card-text">Expert coconut tree climbing services.</p>
@@ -145,7 +164,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card service-card">
-                        <img src="maid.jpeg" class="card-img-top" alt="House Maid">
+                        
                         <div class="card-body text-center">
                             <h3 class="card-title">House Maid</h3>
                             <p class="card-text">Professional cleaning and household management.</p>
@@ -155,7 +174,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card service-card">
-                        <img src="garden.jpeg" class="card-img-top" alt="Gardener">
+                        
                         <div class="card-body text-center">
                             <h3 class="card-title">Gardener</h3>
                             <p class="card-text">Expert gardening services for your home.</p>
