@@ -1,13 +1,13 @@
-rfrom flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a random secret key
 db_config = {
     'user': 'root',
-    'password': 'enteryourpassword',
-    'host': 'enterhostnme',
-    'database': 'enteryourdatabase',
+    'password': 'your password',
+    'host': 'your localhost',
+    'database': ' databasename',
 }
 
 # Connect to the database
@@ -231,6 +231,21 @@ def house_maid():
     house_maids = cursor.fetchall()
     cursor.close()
     conn.close()
+    # Handle search query for GET requests
+    search_query = request.args.get('search')  # Get the search term from the URL
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    if search_query:
+        # If a search query is provided, filter house maids by location
+        cursor.execute("SELECT * FROM house_maids WHERE location LIKE %s", ('%' + search_query + '%',))
+    else:
+        # If no search query is provided, fetch all house maids
+        cursor.execute("SELECT * FROM house_maids")
+
+    house_maids = cursor.fetchall()
+    cursor.close()
+    conn.close()
 
     return render_template('house_maid.html', house_maids=house_maids, application_details=application_details)
 
@@ -296,18 +311,13 @@ def delete_profile():
         flash('You are not logged in.')
         return redirect(url_for('home'))
 
-
-
-
-
-
-
-
-
-
-    
     session.pop('user_id', None)
     return redirect(url_for('home'))
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)  # Remove user from session
+    return redirect(url_for('home'))  # Redirect to login page
 
 
 if __name__ == '__main__':
