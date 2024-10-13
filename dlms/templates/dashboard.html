@@ -188,7 +188,7 @@
         <!-- Contact Us Section -->
         <section id="contact" class="mt-5">
             <h2 class="text-center">Contact Us</h2>
-            <form>
+            <form name="submit-to-google-sheet">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -236,7 +236,17 @@
             }
         });
     </script>
-
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwONOrVlgvJFTxDXL2lec6KHDP4D8xi2mN8nHz_cA9cbSNOE7DwrG7CtVwX7KfQ3UTw/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
