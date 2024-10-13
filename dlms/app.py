@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+rfrom flask import Flask, render_template, request, redirect, url_for, session, flash
 import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a random secret key
 db_config = {
     'user': 'root',
-    'password': 'password123@',
-    'host': 'localhost',
-    'database': 'your_database',
+    'password': 'enteryourpassword',
+    'host': 'enterhostnme',
+    'database': 'enteryourdatabase',
 }
 
 # Connect to the database
