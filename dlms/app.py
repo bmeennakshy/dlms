@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Change this to a random secret key
 db_config = {
     'user': 'root',
-    'password': 'password123@',
+    'password': 'password',
     'host': 'localhost',
-    'database': 'your_database',
+    'database': 'dbname',
 }
 
 # Connect to the database
